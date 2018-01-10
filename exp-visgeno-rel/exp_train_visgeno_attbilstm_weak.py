@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import sys
-import os; os.environ['CUDA_VISIBLE_DEVICES'] = '0'  # using GPU 0
+import os; os.environ['CUDA_VISIBLE_DEVICES'] = ''  # using GPU 0
 
 import tensorflow as tf
 import numpy as np
@@ -31,7 +31,7 @@ lr_decay_step = 160000
 lr_decay_rate = 0.1
 weight_decay = 0.0005
 momentum = 0.95
-max_iter = 360000
+max_iter = 3
 
 fix_convnet = True
 vgg_dropout = False
@@ -44,11 +44,11 @@ vocab_file = './word_embedding/vocabulary_72700.txt'
 im_mean = visgeno_attention_model.fastrcnn_vgg_net.channel_mean
 
 # Snapshot Params
-snapshot_interval = 10000
+snapshot_interval = 1
 snapshot_file = './exp-visgeno-rel/tfmodel/visgeno_attbilstm_weak_iter_%d.tfmodel'
 
 # Log params
-log_interval = 20
+log_interval = 1
 log_dir = './exp-visgeno-rel/tb/visgeno_attbilstm_weak/'
 
 ################################################################################

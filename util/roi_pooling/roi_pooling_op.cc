@@ -24,6 +24,7 @@ limitations under the License.
 
 
 using namespace tensorflow;
+
 typedef Eigen::ThreadPoolDevice CPUDevice;
 
 REGISTER_OP("RoiPool")

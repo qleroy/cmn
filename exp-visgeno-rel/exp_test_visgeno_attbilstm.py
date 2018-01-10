@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import sys
-import os; os.environ['CUDA_VISIBLE_DEVICES'] = '0'  # using GPU 0
+import os; os.environ['CUDA_VISIBLE_DEVICES'] = ''  # using GPU 0
 
 import tensorflow as tf
 import numpy as np
@@ -28,7 +28,7 @@ vocab_file = './word_embedding/vocabulary_72700.txt'
 im_mean = visgeno_attention_model.fastrcnn_vgg_net.channel_mean
 
 # Snapshot Params
-model_file = './downloaded_models/visgeno_attbilstm_strong_iter_360000.tfmodel'
+model_file = '/Users/quentinleroy/mva/recvis/project/cmn/downloaded_models/visgeno_attbilstm_strong_iter_360000.tfmodel'
 
 result_file = './exp-visgeno-rel/results/visgeno_attbilstm_strong_iter_360000_tst.txt'
 
@@ -55,7 +55,8 @@ reader = DataReader(imdb_file, vocab_file, im_mean, shuffle=False, max_bbox_num=
 snapshot_saver = tf.train.Saver()
 
 # Start Session
-sess = tf.Session(config=tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True)))
+# sess = tf.Session(config=tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True)))
+sess = tf.Session()
 
 # Run Initialization operations
 snapshot_saver.restore(sess, model_file)
@@ -72,7 +73,7 @@ total = 0
 ################################################################################
 
 # Run optimization
-for n_iter in range(reader.num_batch):
+for n_iter in range(3):
     batch = reader.read_batch()
     print('\tthis batch: N_lang = %d, N_bbox = %d' %
           (batch['expr_obj1_batch'].shape[1], batch['bbox_batch'].shape[0]))
