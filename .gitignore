@@ -27,3 +27,6 @@ demo/viz/*
 checkpoint
 
 events.out.tfevents.*
+
+exp-unrel/unrel-dataset
+exp-visgeno/visgeno-dataset

@@ -10,6 +10,7 @@ from util import im_processing, text_processing
 def load_one_batch(iminfo, im_mean, min_size, max_size, vocab_dict, T,
         max_bbox_num, max_rel_num):
     im_path = iminfo['im_path']
+    image_id = iminfo['image_id']
     im = skimage.io.imread(im_path)
     if im.ndim == 2:
         im = np.tile(im[..., np.newaxis], (1, 1, 3))
@@ -94,6 +95,7 @@ def load_one_batch(iminfo, im_mean, min_size, max_size, vocab_dict, T,
                label_batch=label_batch, questions=questions,
                obj1_component_idx=obj1_component_idx,
                obj2_component_idx=obj2_component_idx,
-               rel_component_idx=rel_component_idx)
+               rel_component_idx=rel_component_idx,
+               image_id=image_id)
 
     return batch
