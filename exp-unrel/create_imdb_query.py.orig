@@ -1,6 +1,10 @@
 import numpy as np
 
+<<<<<<< HEAD
 def update_imdb_all(imdb_old, query):
+=======
+def update_imdb(imdb_old, query):
+>>>>>>> fc21a5b4fb49d9e6876f64b5d942f603f28887b4
     # replace mapped_rels by [(0,1,query[0], query[1], query[2])]
     for idx in range(len(imdb_old)):
         imdb_old[idx]['mapped_rels'] = [(0, 1, query[0], query[1], query[2])]
@@ -34,6 +38,12 @@ if __name__ == "__main__":
     if len(sys.argv) is not 2:
         print("Usage: python create_imdb_query.py id_query")
     else:
+<<<<<<< HEAD
         # TAKE query
         query = int(sys.argv[1])
         create_imdb_query(query)
+=======
+        # TAKE query 
+        query = int(sys.argv[1])
+        create_imdb_query(query)
+>>>>>>> fc21a5b4fb49d9e6876f64b5d942f603f28887b4
