@@ -68,9 +68,9 @@ def attbilstm(text_seq_batch, name, num_vocab, embed_dim, lstm_dim,
             probs_obj1 = tf.nn.softmax(scores_obj1, dim=0)*is_not_pad
             probs_obj2 = tf.nn.softmax(scores_obj2, dim=0)*is_not_pad
             probs_rel = tf.nn.softmax(scores_rel, dim=0)*is_not_pad
-            probs_obj1 = probs_obj1 / tf.reduce_sum(probs_obj1, 0, keep_dims=True)
-            probs_obj2 = probs_obj2 / tf.reduce_sum(probs_obj2, 0, keep_dims=True)
-            probs_rel = probs_rel / tf.reduce_sum(probs_rel, 0, keep_dims=True)
+            probs_obj1 = probs_obj1 / tf.reduce_sum(probs_obj1, 0, keep_dims=True) # a_{t,subj}
+            probs_obj2 = probs_obj2 / tf.reduce_sum(probs_obj2, 0, keep_dims=True) # a_{t,obj}
+            probs_rel = probs_rel / tf.reduce_sum(probs_rel, 0, keep_dims=True) # a_{t,rel}
 
             tf.add_to_collection("attention_probs", (probs_obj1, probs_obj2, probs_rel))
 

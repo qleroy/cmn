@@ -9,8 +9,8 @@ def visgeno_attbilstm_net(input_batch, bbox_batch, spatial_batch, expr_obj,
     #   spatial_batch has shape [N_box, D_spatial] and
     #   expr_obj has shape [T, N_batch]
 
-    N_batch = tf.shape(expr_obj)[1]
-    N_box = tf.shape(spatial_batch)[0]
+    N_batch = tf.shape(expr_obj)[1] # num relations
+    N_box = tf.shape(spatial_batch)[0] # num boxes
 
     # Extract visual features
     vis_feat = fastrcnn_vgg_net.vgg_roi_fc7(input_batch, bbox_batch,

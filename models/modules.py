@@ -197,6 +197,7 @@ def relationship_module_spatial_only_grid_score(spatial_feat1, scores1,
         # Localization scores as linear classification over the l2-normalized
         relationship_scores = fc('relationship_scores', eltwise_mult, output_dim=1)
         relationship_scores = tf.reshape(relationship_scores, to_T([N_lang, N1, N2, 1]))
+
         # Rescale the scores, if specified
         if rescale_scores:
             alpha_obj1 = tf.get_variable("alpha_obj1", shape=[], dtype=tf.float32,
@@ -208,6 +209,8 @@ def relationship_module_spatial_only_grid_score(spatial_feat1, scores1,
             scores1 = tf.multiply(scores1, alpha_obj1)
             scores2 = tf.multiply(scores2, alpha_obj2)
             relationship_scores = tf.multiply(relationship_scores, alpha_rel)
+
+        tf.add_to_collection("scores", (tf.reshape(scores1, to_T([N_lang, N1, 1, 1])), tf.reshape(scores2, to_T([N_lang, 1, N2, 1])), relationship_scores))
 
         final_scores = tf.add(tf.add(tf.reshape(scores1, to_T([N_lang, N1, 1, 1])),
                                      tf.reshape(scores2, to_T([N_lang, 1, N2, 1]))),
