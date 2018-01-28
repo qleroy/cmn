@@ -71,6 +71,16 @@ scores_query = []
 cpt = 0
 for n_iter in range(reader.num_batch):
     batch = reader.read_batch()
+
+    ###
+    # continue if the batch does not contain any relationship
+    # and increment n_iter so that the first few batches are not read once again in case of
+    ###
+    if batch is None:
+        n_iter = n_iter + 1
+        continue
+
+        
     print('\tthis batch: N_lang = %d, N_bbox = %d' %
           (batch['expr_obj1_batch'].shape[1], batch['bbox_batch'].shape[0]))
 
@@ -87,7 +97,7 @@ for n_iter in range(reader.num_batch):
 
     # scores_val has shape [N_batch, N_box, N_box, 1]
     scores_flat = scores_val.reshape((N_batch, N_box*N_box))
-    
+
     scores_query.append((scores_flat, batch['image_id']))
 
     cpt = cpt + 1
@@ -95,7 +105,3 @@ for n_iter in range(reader.num_batch):
         np.save('exp-unrel/results/scores_query', np.array(scores_query))
 
 np.save('exp-unrel/results/scores_query', np.array(scores_query))
-
-
-
-
